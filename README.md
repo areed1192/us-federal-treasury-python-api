@@ -1,4 +1,4 @@
-# Template Repo
+# United States Federal Treasury API
 
 ## Table of Contents
 
@@ -9,9 +9,19 @@
 
 ## Overview
 
+The U.S. Department of the Treasury is building a suite of open-source tools to deliver
+standardized information about federal finances to the public. We are working to centralize
+publicly available financial data, and this website will include datasets from the Fiscal
+Service on topics including debt, revenue, spending, interest rates, and savings bonds.
+
+Our API is based on Representational State Transfer, otherwise known as a RESTful API.
+Our API accepts GET requests, returns JSON responses, and uses standard HTTP response
+codes. Each endpoint on this site is accessible through unique URLs that respond with
+data values and metadata from a single database table.
+
 ## Setup
 
-**Setup - Requirements Install:***
+**Setup - Requirements Install:**
 
 For this particular project, you only need to install the dependencies, to use the project. The dependencies
 are listed in the `requirements.txt` file and can be installed by running the following command:
@@ -47,7 +57,7 @@ pip install .
 This will install all the dependencies listed in the `setup.py` file. Once done
 you can use the library wherever you want.
 
-**Setup - PyPi Install:**
+<!-- **Setup - PyPi Install:**
 
 To **install** the library, run the following command from the terminal.
 
@@ -61,7 +71,7 @@ To **upgrade** the library, run the following command from the terminal.
 
 ```console
 pip install --upgrade federal-register
-```
+``` -->
 
 ## Usage
 
