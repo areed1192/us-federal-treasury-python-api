@@ -1,9 +1,10 @@
 import unittest
 
 from unittest import TestCase
+from treasury.other_data import OtherData
 from treasury.client import FederalTreasuryClient
-from treasury.public_debt import PublicDebtInstruments
 from treasury.session import FederalTreasurySession
+from treasury.public_debt import PublicDebtInstruments
 from treasury.outstanding_debt import OutstandingDebtInstruments
 from treasury.daily_treasury_statements import DailyTreasuryStatements
 from treasury.monthly_treasury_statement import MonthlyTreasuryStatements
@@ -73,6 +74,14 @@ class FederalTreasuryTest(TestCase):
         self.assertIsInstance(
             self.client.treasury_reports_on_receivables(),
             TreasuryReportsOnReceivables
+        )
+
+    def test_creates_instance_of_other_data(self):
+        """Create an instance and make sure it's a `OtherData`."""
+
+        self.assertIsInstance(
+            self.client.other_data(),
+            OtherData
         )
 
     def tearDown(self) -> None:

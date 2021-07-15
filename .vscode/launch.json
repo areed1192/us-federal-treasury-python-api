@@ -35,6 +35,13 @@
       "request": "launch",
       "program": "${workspaceFolder}/samples/use_treasury_reports_receivables.py",
       "console": "integratedTerminal"
+    },
+    {
+      "name": "Debug: Other Data",
+      "type": "python",
+      "request": "launch",
+      "program": "${workspaceFolder}/samples/use_other_data.py",
+      "console": "integratedTerminal"
     }
   ]
 }

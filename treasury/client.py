@@ -1,4 +1,6 @@
 from treasury.session import FederalTreasurySession
+
+from treasury.other_data import OtherData
 from treasury.public_debt import PublicDebtInstruments
 from treasury.outstanding_debt import OutstandingDebtInstruments
 from treasury.daily_treasury_statements import DailyTreasuryStatements
@@ -115,5 +117,24 @@ class FederalTreasuryClient():
 
         # Grab the `TreasuryReportsOnReceivables` object.
         object = TreasuryReportsOnReceivables(session=self.treasury_session)
+
+        return object
+
+    def other_data(self) -> OtherData:
+        """Used to access the `OtherData` services.
+
+        ### Returns
+        ---
+        OtherData:
+            The `OtherData` services Object.
+
+        ### Usage
+        ----
+            >>> treasury_client = FederalTreasuryClient()
+            >>> other_data_service = treasury_client.other_data()
+        """
+
+        # Grab the `OtherData` object.
+        object = OtherData(session=self.treasury_session)
 
         return object
