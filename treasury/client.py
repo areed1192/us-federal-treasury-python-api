@@ -3,6 +3,7 @@ from treasury.public_debt import PublicDebtInstruments
 from treasury.outstanding_debt import OutstandingDebtInstruments
 from treasury.daily_treasury_statements import DailyTreasuryStatements
 from treasury.monthly_treasury_statement import MonthlyTreasuryStatements
+from treasury.treasury_reports_on_receivables import TreasuryReportsOnReceivables
 
 
 class FederalTreasuryClient():
@@ -95,5 +96,24 @@ class FederalTreasuryClient():
 
         # Grab the `MonthlyTreasuryStatements` object.
         object = MonthlyTreasuryStatements(session=self.treasury_session)
+
+        return object
+
+    def treasury_reports_on_receivables(self) -> TreasuryReportsOnReceivables:
+        """Used to access the `TreasuryReportsOnReceivables` services.
+
+        ### Returns
+        ---
+        TreasuryReportsOnReceivables:
+            The `TreasuryReportsOnReceivables` services Object.
+
+        ### Usage
+        ----
+            >>> treasury_client = FederalTreasuryClient()
+            >>> treasury_reports_service = treasury_client.treasury_reports_on_receivables()
+        """
+
+        # Grab the `TreasuryReportsOnReceivables` object.
+        object = TreasuryReportsOnReceivables(session=self.treasury_session)
 
         return object

@@ -28,6 +28,13 @@
       "request": "launch",
       "program": "${workspaceFolder}/samples/use_monthly_treasury_statements.py",
       "console": "integratedTerminal"
+    },
+    {
+      "name": "Debug: Treasury Reports on Receivables",
+      "type": "python",
+      "request": "launch",
+      "program": "${workspaceFolder}/samples/use_treasury_reports_receivables.py",
+      "console": "integratedTerminal"
     }
   ]
 }
