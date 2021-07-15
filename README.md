@@ -75,10 +75,27 @@ pip install --upgrade federal-register
 
 ## Usage
 
-Here is a simple example of using the `place_holder` library.
+Here is a simple example of using the `treasury` library.
 
 ```python
+from pprint import pprint
+from treasury.client import FederalTreasuryClient
 
+# Initialize the client.
+treasury_client = FederalTreasuryClient()
+
+# Initialize the `DailyTreasuryStatements` service.
+daily_treasury_service = treasury_client.daily_treasury_statements()
+
+# Grab Public Debt Transactions.
+pprint(
+    daily_treasury_service.public_debt_transactions()
+)
+
+# Grab Adjusted Public Debt Transactions.
+pprint(
+    daily_treasury_service.adjusted_public_debt_transactions()
+)
 ```
 
 ## Support These Projects
