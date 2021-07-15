@@ -1,32 +1,48 @@
 import unittest
 
 from unittest import TestCase
-from configparser import ConfigParser
+from treasury.client import FederalTreasuryClient
+from treasury.public_debt import PublicDebtInstruments
+from treasury.session import FederalTreasurySession
 
 
-class MySession(TestCase):
+class FederalTreasuryTest(TestCase):
 
-    """Will perform a unit test for the <PLACEHOLDER> session."""
+    """Will perform a unit test for the `FederalTreasuryClient`."""
 
     def setUp(self) -> None:
-        """Set up the <PLACEHOLDER> Client."""
+        """Set up the `FederalTreasuryClient` Client."""
 
-        # Initialize the Parser.
-        config = ConfigParser()
+        self.client = FederalTreasuryClient()
 
-        # Read the file.
-        config.read('configs/config.ini')
+    def test_creates_instance_of_client(self):
+        """Create an instance and make sure it's a `FederalTreasuryClient`."""
 
-        # Get the specified credentials.
-        config.get('main', '')
+        self.assertIsInstance(
+            self.client,
+            FederalTreasuryClient
+        )
 
     def test_creates_instance_of_session(self):
-        """Create an instance and make sure it's a <PLACEHOLDER>."""
-        pass
+        """Create an instance and make sure it's a `FederalTreasurySession`."""
+
+        self.assertIsInstance(
+            self.client.treasury_session,
+            FederalTreasurySession
+        )
+
+    def test_creates_instance_of_public_debt(self):
+        """Create an instance and make sure it's a `PublicDebtInstruments`."""
+
+        self.assertIsInstance(
+            self.client.public_debt_instruments(),
+            PublicDebtInstruments
+        )
 
     def tearDown(self) -> None:
-        """Teardown the <PLACEHOLDER> Client."""
-        pass
+        """Teardown the `FederalTreasuryClient` Client."""
+
+        del self.client
 
 
 if __name__ == '__main__':

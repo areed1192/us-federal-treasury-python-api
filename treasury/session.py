@@ -8,7 +8,7 @@ from datetime import datetime
 from datetime import date
 
 
-class TreasurySession():
+class FederalTreasurySession():
 
     """
     Overview:
@@ -42,7 +42,7 @@ class TreasurySession():
         log_format = '%(asctime)-15s|%(filename)s|%(message)s'
 
         self.client: FederalTreasuryClient = client
-        self.resource = 'https://api.stlouisfed.org/fred'
+        self.resource = 'https://api.fiscaldata.treasury.gov/services/api/fiscal_service'
 
         if not pathlib.Path('logs').exists():
             pathlib.Path('logs').mkdir()
