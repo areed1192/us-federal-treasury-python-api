@@ -3,14 +3,18 @@ from typing import List
 from treasury.session import FederalTreasurySession
 
 
-class PublicDebtInstruments():
+class DailyTreasuryStatements():
 
     """
     ## Overview:
     ----
-    The Federal Treasury provided a wide range of data on
-    public debt instruments. The `PublicDebtInstrument`
-    object is used to query data on these instruments.
+    The Daily Treasury Statement (DTS) dataset contains a series of
+    tables showing the daily cash and debt operations of the U.S.
+    Treasury. The data includes operating cash balance, deposits and
+    withdrawals of cash, public debt transactions, federal tax deposits,
+    income tax refunds issued (by check and electronic funds transfer (EFT)),
+    short-term cash investments, and issues and redemptions of securities.
+    All figures are rounded to the nearest million.
     """
 
     def __init__(self, session: FederalTreasurySession) -> None:
@@ -24,21 +28,21 @@ class PublicDebtInstruments():
         ### Usage
         ----
             >>> treasury_client = FederalTreasuryClient()
-            >>> debt_instruments_service = treasury_client.public_debt_instruments()
+            >>> daily_treasury_service = treasury_client.daily_treasury_statement()
         """
 
         # Set the session.
         self.treasury_session: FederalTreasurySession = session
 
     def __repr__(self) -> str:
-        """String representation of the `FederalTreasuryClient.PublicDebtInstruments` object."""
+        """String representation of the `FederalTreasuryClient.DailyTreasuryStatements` object."""
 
         # define the string representation
-        str_representation = '<FederalTreasuryClient.PublicDebtInstruments (active=True, connected=True)>'
+        str_representation = '<FederalTreasuryClient.DailyTreasuryStatements (active=True, connected=True)>'
 
         return str_representation
 
-    def treasury_securities_outstanding(
+    def operating_cash_balance(
         self,
         fields: List[str] = None,
         sort: List[str] = None,
@@ -46,13 +50,14 @@ class PublicDebtInstruments():
         page_number: int = 1,
         page_size: int = 100
     ) -> Dict:
-        """Queries amounts outstanding for all securities.
+        """Queries Operating Cash Balance.
 
         ### Overview
         ----
-        A table that summarizes the amounts outstanding for all the
-        securities issued by the Bureau of the Fiscal Service that makes
-        up the Total Public Debt Outstanding amount.
+        This table represents the Treasury General Account balance.
+        Additional detail on changes to the Treasury General Account
+        can be found in the Deposits and Withdrawals of Operating Cash
+        table. All figures are rounded to the nearest million.
 
         ### Parameters
         ----
@@ -92,8 +97,8 @@ class PublicDebtInstruments():
         ### Usage
         ----
             >>> treasury_client = FederalTreasuryClient()
-            >>> debt_instruments_service = treasury_client.public_debt_instruments()
-            >>> debt_instruments_service.treasury_securities_outstanding()
+            >>> daily_treasury_service = treasury_client.daily_treasury_statement()
+            >>> daily_treasury_service.operating_cash_balance()
         """
 
         if fields:
@@ -107,7 +112,7 @@ class PublicDebtInstruments():
 
         content = self.treasury_session.make_request(
             method='get',
-            endpoint='/v1/debt/mspd/mspd_table_1',
+            endpoint='/v1/accounting/dts/dts_table_1',
             params={
                 'format': 'json',
                 'page[number]': page_number,
@@ -120,7 +125,7 @@ class PublicDebtInstruments():
 
         return content
 
-    def statutory_debt_limit(
+    def deposits_and_withdrawals_operating_cash(
         self,
         fields: List[str] = None,
         sort: List[str] = None,
@@ -128,17 +133,15 @@ class PublicDebtInstruments():
         page_number: int = 1,
         page_size: int = 100
     ) -> Dict:
-        """Queries the Statuatory Debt Limit table.
+        """Deposits and Withdrawals of Operating Cash.
 
         ### Overview
         ----
-        A table that summarizes the amounts outstanding for the securities
-        issued by the Bureau of the Fiscal Service adjusted for Unamortized
-        Discount on Treasury Bills and Zero Coupon Treasury Bonds, Other
-        Debt (old debt issued before 1917 and old currency called United
-        States Notes), Debt held by the Federal Financing Bank and Guaranteed
-        Debt of Government Agencies that makes up the Total Public Debt Subject
-        to Limit amount.
+        This table represents deposits and withdrawals from
+        the Treasury General Account. A summary of changes to
+        the Treasury General Account can be found in the Operating
+        Cash Balance table. All figures are rounded to the nearest
+        million.
 
         ### Parameters
         ----
@@ -178,8 +181,8 @@ class PublicDebtInstruments():
         ### Usage
         ----
             >>> treasury_client = FederalTreasuryClient()
-            >>> debt_instruments_service = treasury_client.public_debt_instruments()
-            >>> debt_instruments_service.statutory_debt_limit()
+            >>> daily_treasury_service = treasury_client.daily_treasury_statement()
+            >>> daily_treasury_service.deposits_and_withdrawals_operating_cash()
         """
 
         if fields:
@@ -193,7 +196,7 @@ class PublicDebtInstruments():
 
         content = self.treasury_session.make_request(
             method='get',
-            endpoint='/v1/debt/mspd/mspd_table_2',
+            endpoint='/v1/accounting/dts/dts_table_2',
             params={
                 'format': 'json',
                 'page[number]': page_number,
@@ -206,7 +209,7 @@ class PublicDebtInstruments():
 
         return content
 
-    def details_of_securities_outstanding(
+    def public_debt_transactions(
         self,
         fields: List[str] = None,
         sort: List[str] = None,
@@ -214,13 +217,13 @@ class PublicDebtInstruments():
         page_number: int = 1,
         page_size: int = 100
     ) -> Dict:
-        """Queries the details of Securities Outstanding table.
+        """Public Debt Transactions.
 
         ### Overview
         ----
-        A table that shows details on marketable and non-marketable
-        Treasury securities that are outstanding as of the last
-        business day of the month.
+        This table represents the issues and redemption of marketable
+        and nonmarketable securities. All figures are rounded to the
+        nearest million.
 
         ### Parameters
         ----
@@ -260,8 +263,8 @@ class PublicDebtInstruments():
         ### Usage
         ----
             >>> treasury_client = FederalTreasuryClient()
-            >>> debt_instruments_service = treasury_client.public_debt_instruments()
-            >>> debt_instruments_service.details_of_securities_outstanding()
+            >>> daily_treasury_service = treasury_client.daily_treasury_statement()
+            >>> daily_treasury_service.public_debt_transactions()
         """
 
         if fields:
@@ -275,7 +278,7 @@ class PublicDebtInstruments():
 
         content = self.treasury_session.make_request(
             method='get',
-            endpoint='/v1/debt/mspd/mspd_table_3',
+            endpoint='/v1/accounting/dts/dts_table_3a',
             params={
                 'format': 'json',
                 'page[number]': page_number,
@@ -288,7 +291,7 @@ class PublicDebtInstruments():
 
         return content
 
-    def details_of_marketable_securities_outstanding(
+    def adjusted_public_debt_transactions(
         self,
         fields: List[str] = None,
         sort: List[str] = None,
@@ -296,14 +299,15 @@ class PublicDebtInstruments():
         page_number: int = 1,
         page_size: int = 100
     ) -> Dict:
-        """Queries the Details of Marketables Securities Outstanding table.
+        """Adjustment of Public Debt Transactions
+        to Cash Basis.
 
         ### Overview
         ----
-        A table that shows in detail by CUSIP, interest rate, the issue date,
-        maturity date, interest payment dates and amounts outstanding for
-        unmatured Bills, Notes, Bonds, Treasury Inflation-Protected Securities
-        and Floating Rate Notes as of the last business day of the month.
+        This table represents cash basis adjustments to the issues
+        and redemptions of Treasury securities in the Public Debt
+        Transactions table. All figures are rounded to the nearest
+        million.
 
         ### Parameters
         ----
@@ -343,8 +347,8 @@ class PublicDebtInstruments():
         ### Usage
         ----
             >>> treasury_client = FederalTreasuryClient()
-            >>> debt_instruments_service = treasury_client.public_debt_instruments()
-            >>> debt_instruments_service.details_of_marketable_securities_outstanding()
+            >>> daily_treasury_service = treasury_client.daily_treasury_statement()
+            >>> daily_treasury_service.adjusted_public_debt_transactions()
         """
 
         if fields:
@@ -358,7 +362,7 @@ class PublicDebtInstruments():
 
         content = self.treasury_session.make_request(
             method='get',
-            endpoint='/v1/debt/mspd/mspd_table_3_market',
+            endpoint='/v1/accounting/dts/dts_table_3b',
             params={
                 'format': 'json',
                 'page[number]': page_number,
@@ -371,7 +375,7 @@ class PublicDebtInstruments():
 
         return content
 
-    def details_of_nonmarketable_securities_outstanding(
+    def debt_subject_limit(
         self,
         fields: List[str] = None,
         sort: List[str] = None,
@@ -379,15 +383,13 @@ class PublicDebtInstruments():
         page_number: int = 1,
         page_size: int = 100
     ) -> Dict:
-        """Queries the Details of Non-Marketables Securities Outstanding table.
+        """Debt Subject to Limit.
 
         ### Overview
         ----
-        A table that summarizes the monthly activity and current month amounts
-        outstanding for Savings Bonds, Government Account Series, and State and
-        Local Government Series securities where legal ownership cannot be
-        transferred. These securities are outstanding as of the last business
-        day of the month.
+        This table represents the breakdown of total public
+        debt outstanding as it relates to the statutory debt
+        limit. All figures are rounded to the nearest million.
 
         ### Parameters
         ----
@@ -427,8 +429,8 @@ class PublicDebtInstruments():
         ### Usage
         ----
             >>> treasury_client = FederalTreasuryClient()
-            >>> debt_instruments_service = treasury_client.public_debt_instruments()
-            >>> debt_instruments_service.details_of_nonmarketable_securities_outstanding()
+            >>> daily_treasury_service = treasury_client.daily_treasury_statement()
+            >>> daily_treasury_service.adjusted_public_debt_transactions()
         """
 
         if fields:
@@ -442,7 +444,7 @@ class PublicDebtInstruments():
 
         content = self.treasury_session.make_request(
             method='get',
-            endpoint='/v1/debt/mspd/mspd_table_3_nonmarket',
+            endpoint='/v1/accounting/dts/dts_table_3c',
             params={
                 'format': 'json',
                 'page[number]': page_number,
@@ -455,7 +457,7 @@ class PublicDebtInstruments():
 
         return content
 
-    def historical_data(
+    def federal_tax_deposits(
         self,
         fields: List[str] = None,
         sort: List[str] = None,
@@ -463,13 +465,15 @@ class PublicDebtInstruments():
         page_number: int = 1,
         page_size: int = 100
     ) -> Dict:
-        """Queries the Historical Data table.
+        """Federal Tax Deposits.
 
         ### Overview
         ----
-        A table that shows the historical breakdown of the Debt
-        Held by the Public, Intragovernmental Holdings and the
-        Total Public Debt Outstanding.
+        This table represents the breakdown of taxes that are received
+        by the federal government. Federal taxes received are represented
+        as deposits in the Deposits and Withdrawals of Operating Cash
+        table. All figures are rounded to the nearest million.
+
 
         ### Parameters
         ----
@@ -509,8 +513,8 @@ class PublicDebtInstruments():
         ### Usage
         ----
             >>> treasury_client = FederalTreasuryClient()
-            >>> debt_instruments_service = treasury_client.public_debt_instruments()
-            >>> debt_instruments_service.historical_data()
+            >>> daily_treasury_service = treasury_client.daily_treasury_statement()
+            >>> daily_treasury_service.federal_tax_deposits()
         """
 
         if fields:
@@ -524,7 +528,7 @@ class PublicDebtInstruments():
 
         content = self.treasury_session.make_request(
             method='get',
-            endpoint='/v1/debt/mspd/mspd_table_4',
+            endpoint='/v1/accounting/dts/dts_table_4',
             params={
                 'format': 'json',
                 'page[number]': page_number,
@@ -537,7 +541,7 @@ class PublicDebtInstruments():
 
         return content
 
-    def holding_of_securities_stripped_form(
+    def short_term_cash_investments(
         self,
         fields: List[str] = None,
         sort: List[str] = None,
@@ -545,19 +549,15 @@ class PublicDebtInstruments():
         page_number: int = 1,
         page_size: int = 100
     ) -> Dict:
-        """Queries the Holdings of Treasury Securities in
-        Stripped Form.
+        """Short Term Cash Investments.
 
         ### Overview
         ----
-        A table that shows in detail by CUSIP, the interest rate, the STRIP
-        CUSIP, maturity date, and amounts outstanding for securities held in
-        unstripped form, stripped form and amount that have been reconstituted.
-        STRIP stands for Separate Trading of Registered Interest and Principal
-        of Securities. This is a security that has been stripped down into
-        separate securities representing the principal and each interest payment.
-        Each payment has its own identification number and can be traded
-        individually. These securities are also known as zero-coupon bonds.
+        This table represents the amount Treasury has in short-term
+        cash investments. Deposits and withdrawals of short-term cash
+        investments are also represented in the Deposits and Withdrawals
+        of Operating Cash table. This program was suspended indefinitely
+        in 2008. All figures are rounded to the nearest million.
 
         ### Parameters
         ----
@@ -597,8 +597,8 @@ class PublicDebtInstruments():
         ### Usage
         ----
             >>> treasury_client = FederalTreasuryClient()
-            >>> debt_instruments_service = treasury_client.public_debt_instruments()
-            >>> debt_instruments_service.holding_of_securities_stripped_form()
+            >>> daily_treasury_service = treasury_client.daily_treasury_statement()
+            >>> daily_treasury_service.short_term_cash_investments()
         """
 
         if fields:
@@ -612,7 +612,91 @@ class PublicDebtInstruments():
 
         content = self.treasury_session.make_request(
             method='get',
-            endpoint='/v1/debt/mspd/mspd_table_5',
+            endpoint='/v1/accounting/dts/dts_table_5',
+            params={
+                'format': 'json',
+                'page[number]': page_number,
+                'page[size]': page_size,
+                'fields': fields,
+                'sort': sort,
+                'filters': filters
+            }
+        )
+
+        return content
+
+    def income_tax_refunds_issued(
+        self,
+        fields: List[str] = None,
+        sort: List[str] = None,
+        filters: List[str] = None,
+        page_number: int = 1,
+        page_size: int = 100
+    ) -> Dict:
+        """Income Tax Refunds Issued.
+
+        ### Overview
+        ----
+        This table represents the breakdown of tax refunds by recipient
+        (individual vs business) and type (check vs electronic funds
+        transfer). Tax refunds are also represented as withdrawals in the
+        Deposits and Withdrawals of Operating Cash table. All figures are
+        rounded to the nearest million.
+
+        ### Parameters
+        ----
+        fields : List[str] (optional, Default=None)        
+            The fields parameter allows you to select which field(s) should be
+            included in the response. If desired fields are not specified, all
+            fields will be returned.
+
+        sort : List[str] (optional, Default=None)        
+            The sort parameter allows a user to sort a field in ascending (least
+            to greatest) or descending (greatest to least) order. When no sort parameter
+            is specified, the default is to sort by the first column listed. Most API
+            endpoints are thus sorted by date in ascending order (historical to most
+            current).
+
+        filters : List[str] (optional, Default=None)        
+            Filters are used to view a subset of the data based on specific
+            criteria. For example, you may want to find data that falls within
+            a certain date range, or only show records which contain a value
+            larger than a certain threshold. When no filters are provided,
+            the default response will return all fields and all data.
+
+        page_number : int (optional, Default=1)
+            The page number will set the index for the pagination, starting
+            at 1. This allows the user to paginate through the records
+            returned from an API request
+
+        page_size : int (optional, Default=100)
+            The page size will set the number of rows that are returned
+            on a request.
+
+        ### Returns
+        ----
+        Dict
+            A collection of `Records` resources.
+
+        ### Usage
+        ----
+            >>> treasury_client = FederalTreasuryClient()
+            >>> daily_treasury_service = treasury_client.daily_treasury_statement()
+            >>> daily_treasury_service.income_tax_refunds_issued()
+        """
+
+        if fields:
+            fields = ','.join(fields)
+
+        if filters:
+            filters = ','.join(filters)
+
+        if sort:
+            sort = ','.join(sort)
+
+        content = self.treasury_session.make_request(
+            method='get',
+            endpoint='/v1/accounting/dts/dts_table_6',
             params={
                 'format': 'json',
                 'page[number]': page_number,

@@ -1,11 +1,6 @@
 from typing import Dict
 from typing import List
-from typing import Union
-from datetime import datetime
 from treasury.session import FederalTreasurySession
-
-# Used for type hinting
-todays_date = datetime.today().date().isoformat()
 
 
 class OutstandingDebtInstruments():
@@ -34,13 +29,12 @@ class OutstandingDebtInstruments():
 
         # Set the session.
         self.treasury_session: FederalTreasurySession = session
-        self._todays_date = datetime.today().date().isoformat()
 
     def __repr__(self) -> str:
-        """String representation of the `FederalTreasuryClient.PublicDebtInstruments` object."""
+        """String representation of the `FederalTreasuryClient.OutstandingDebtInstruments` object."""
 
         # define the string representation
-        str_representation = '<FederalTreasuryClient.PublicDebtInstruments (active=True, connected=True)>'
+        str_representation = '<FederalTreasuryClient.OutstandingDebtInstruments (active=True, connected=True)>'
 
         return str_representation
 

@@ -14,6 +14,13 @@
       "request": "launch",
       "program": "${workspaceFolder}/samples/use_outstanding_debt_instruments.py",
       "console": "integratedTerminal"
+    },
+    {
+      "name": "Debug: Daily Treasury Statements",
+      "type": "python",
+      "request": "launch",
+      "program": "${workspaceFolder}/samples/use_daily_treasury_statements.py",
+      "console": "integratedTerminal"
     }
   ]
 }
