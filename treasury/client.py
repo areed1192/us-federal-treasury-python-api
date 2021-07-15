@@ -1,6 +1,7 @@
 from treasury.session import FederalTreasurySession
 
 from treasury.other_data import OtherData
+from treasury.offest_program import OffsetProgram
 from treasury.public_debt import PublicDebtInstruments
 from treasury.revenue_and_payments import RevenueAndPayments
 from treasury.outstanding_debt import OutstandingDebtInstruments
@@ -156,5 +157,24 @@ class FederalTreasuryClient():
 
         # Grab the `RevenueAndPayments` object.
         object = RevenueAndPayments(session=self.treasury_session)
+
+        return object
+
+    def offset_program(self) -> OffsetProgram:
+        """Used to access the `OffsetProgram` services.
+
+        ### Returns
+        ---
+        OffsetProgram:
+            The `OffsetProgram` services Object.
+
+        ### Usage
+        ----
+            >>> treasury_client = FederalTreasuryClient()
+            >>> offset_program_service = treasury_client.offset_program()
+        """
+
+        # Grab the `OffsetProgram` object.
+        object = OffsetProgram(session=self.treasury_session)
 
         return object

@@ -2,6 +2,7 @@ import unittest
 
 from unittest import TestCase
 from treasury.other_data import OtherData
+from treasury.offest_program import OffsetProgram
 from treasury.client import FederalTreasuryClient
 from treasury.session import FederalTreasurySession
 from treasury.public_debt import PublicDebtInstruments
@@ -91,6 +92,14 @@ class FederalTreasuryTest(TestCase):
         self.assertIsInstance(
             self.client.revenue_and_payments(),
             RevenueAndPayments
+        )
+
+    def test_creates_instance_of_offset_program(self):
+        """Create an instance and make sure it's a `OffsetProgram`."""
+
+        self.assertIsInstance(
+            self.client.offset_program(),
+            OffsetProgram
         )
 
     def tearDown(self) -> None:

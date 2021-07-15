@@ -49,6 +49,13 @@
       "request": "launch",
       "program": "${workspaceFolder}/samples/use_revenue_and_payments.py",
       "console": "integratedTerminal"
+    },
+    {
+      "name": "Debug: Offset Programs",
+      "type": "python",
+      "request": "launch",
+      "program": "${workspaceFolder}/samples/use_offset_program.py",
+      "console": "integratedTerminal"
     }
   ]
 }
