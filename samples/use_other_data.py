@@ -86,3 +86,8 @@ pprint(
 pprint(
     other_data_service.title_seven_ssi()
 )
+
+# Grab Unemployment Trust Fund Quarterly Yields.
+pprint(
+    other_data_service.utf_qtr_yields()
+)

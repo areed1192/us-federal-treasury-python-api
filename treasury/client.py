@@ -2,6 +2,7 @@ from treasury.session import FederalTreasurySession
 
 from treasury.other_data import OtherData
 from treasury.public_debt import PublicDebtInstruments
+from treasury.revenue_and_payments import RevenueAndPayments
 from treasury.outstanding_debt import OutstandingDebtInstruments
 from treasury.daily_treasury_statements import DailyTreasuryStatements
 from treasury.monthly_treasury_statement import MonthlyTreasuryStatements
@@ -136,5 +137,24 @@ class FederalTreasuryClient():
 
         # Grab the `OtherData` object.
         object = OtherData(session=self.treasury_session)
+
+        return object
+
+    def revenue_and_payments(self) -> RevenueAndPayments:
+        """Used to access the `RevenueAndPayments` services.
+
+        ### Returns
+        ---
+        RevenueAndPayments:
+            The `RevenueAndPayments` services Object.
+
+        ### Usage
+        ----
+            >>> treasury_client = FederalTreasuryClient()
+            >>> revenue_and_payment_service = treasury_client.revenue_and_payments()
+        """
+
+        # Grab the `RevenueAndPayments` object.
+        object = RevenueAndPayments(session=self.treasury_session)
 
         return object

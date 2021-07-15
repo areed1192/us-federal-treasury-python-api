@@ -42,6 +42,13 @@
       "request": "launch",
       "program": "${workspaceFolder}/samples/use_other_data.py",
       "console": "integratedTerminal"
+    },
+    {
+      "name": "Debug: Revenue & Payments",
+      "type": "python",
+      "request": "launch",
+      "program": "${workspaceFolder}/samples/use_revenue_and_payments.py",
+      "console": "integratedTerminal"
     }
   ]
 }

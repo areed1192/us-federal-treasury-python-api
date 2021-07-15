@@ -5,6 +5,7 @@ from treasury.other_data import OtherData
 from treasury.client import FederalTreasuryClient
 from treasury.session import FederalTreasurySession
 from treasury.public_debt import PublicDebtInstruments
+from treasury.revenue_and_payments import RevenueAndPayments
 from treasury.outstanding_debt import OutstandingDebtInstruments
 from treasury.daily_treasury_statements import DailyTreasuryStatements
 from treasury.monthly_treasury_statement import MonthlyTreasuryStatements
@@ -82,6 +83,14 @@ class FederalTreasuryTest(TestCase):
         self.assertIsInstance(
             self.client.other_data(),
             OtherData
+        )
+
+    def test_creates_instance_of_revenue_and_payments(self):
+        """Create an instance and make sure it's a `RevenueAndPayments`."""
+
+        self.assertIsInstance(
+            self.client.revenue_and_payments(),
+            RevenueAndPayments
         )
 
     def tearDown(self) -> None:
