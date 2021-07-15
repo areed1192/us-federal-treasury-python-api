@@ -2,6 +2,7 @@ from treasury.session import FederalTreasurySession
 from treasury.public_debt import PublicDebtInstruments
 from treasury.outstanding_debt import OutstandingDebtInstruments
 from treasury.daily_treasury_statements import DailyTreasuryStatements
+from treasury.monthly_treasury_statement import MonthlyTreasuryStatements
 
 
 class FederalTreasuryClient():
@@ -26,7 +27,7 @@ class FederalTreasuryClient():
 
         ### Returns
         ---
-        Users:
+        PublicDebtInstruments:
             The `PublicDebtInstruments` services Object.
 
         ### Usage
@@ -45,7 +46,7 @@ class FederalTreasuryClient():
 
         ### Returns
         ---
-        Users:
+        OutstandingDebtInstruments:
             The `OutstandingDebtInstruments` services Object.
 
         ### Usage
@@ -64,7 +65,7 @@ class FederalTreasuryClient():
 
         ### Returns
         ---
-        Users:
+        DailyTreasuryStatements:
             The `DailyTreasuryStatements` services Object.
 
         ### Usage
@@ -75,5 +76,24 @@ class FederalTreasuryClient():
 
         # Grab the `DailyTreasuryStatements` object.
         object = DailyTreasuryStatements(session=self.treasury_session)
+
+        return object
+
+    def monthly_treasury_statements(self) -> MonthlyTreasuryStatements:
+        """Used to access the `MonthlyTreasuryStatements` services.
+
+        ### Returns
+        ---
+        MonthlyTreasuryStatements:
+            The `MonthlyTreasuryStatements` services Object.
+
+        ### Usage
+        ----
+            >>> treasury_client = FederalTreasuryClient()
+            >>> monthly_treasury_service = treasury_client.monthly_treasury_statements()
+        """
+
+        # Grab the `MonthlyTreasuryStatements` object.
+        object = MonthlyTreasuryStatements(session=self.treasury_session)
 
         return object

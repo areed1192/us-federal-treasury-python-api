@@ -6,6 +6,7 @@ from treasury.public_debt import PublicDebtInstruments
 from treasury.session import FederalTreasurySession
 from treasury.outstanding_debt import OutstandingDebtInstruments
 from treasury.daily_treasury_statements import DailyTreasuryStatements
+from treasury.monthly_treasury_statement import MonthlyTreasuryStatements
 
 
 class FederalTreasuryTest(TestCase):
@@ -55,6 +56,14 @@ class FederalTreasuryTest(TestCase):
         self.assertIsInstance(
             self.client.daily_treasury_statements(),
             DailyTreasuryStatements
+        )
+
+    def test_creates_instance_of_monthly_treasury_statements(self):
+        """Create an instance and make sure it's a `MonthlyTreasuryStatements`."""
+
+        self.assertIsInstance(
+            self.client.monthly_treasury_statements(),
+            MonthlyTreasuryStatements
         )
 
     def tearDown(self) -> None:

@@ -21,6 +21,13 @@
       "request": "launch",
       "program": "${workspaceFolder}/samples/use_daily_treasury_statements.py",
       "console": "integratedTerminal"
+    },
+    {
+      "name": "Debug: Monthly Treasury Statements",
+      "type": "python",
+      "request": "launch",
+      "program": "${workspaceFolder}/samples/use_monthly_treasury_statements.py",
+      "console": "integratedTerminal"
     }
   ]
 }
