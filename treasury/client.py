@@ -1,5 +1,6 @@
 from treasury.session import FederalTreasurySession
 from treasury.public_debt import PublicDebtInstruments
+from treasury.outstanding_debt import OutstandingDebtInstruments
 
 
 class FederalTreasuryClient():
@@ -26,7 +27,7 @@ class FederalTreasuryClient():
         ---
         Users:
             The `PublicDebtInstruments` services Object.
-        
+
         ### Usage
         ----
             >>> treasury_client = FederalTreasuryClient()
@@ -35,5 +36,24 @@ class FederalTreasuryClient():
 
         # Grab the `PublicDebtInstruments` object.
         object = PublicDebtInstruments(session=self.treasury_session)
+
+        return object
+
+    def outstanding_debt_instruments(self) -> OutstandingDebtInstruments:
+        """Used to access the `OutstandingDebtInstruments` services.
+
+        ### Returns
+        ---
+        Users:
+            The `OutstandingDebtInstruments` services Object.
+
+        ### Usage
+        ----
+            >>> treasury_client = FederalTreasuryClient()
+            >>> outstanding_debt_instruments_service = treasury_client.outstanding_debt_instruments()
+        """
+
+        # Grab the `OutstandingDebtInstruments` object.
+        object = OutstandingDebtInstruments(session=self.treasury_session)
 
         return object

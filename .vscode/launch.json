@@ -1,12 +1,19 @@
 {
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "name": "Python: Current File",
-            "type": "python",
-            "request": "launch",
-            "program": "${file}",
-            "console": "integratedTerminal"
-        }
-    ]
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug: Public Debt Instruments",
+      "type": "python",
+      "request": "launch",
+      "program": "${workspaceFolder}/samples/use_public_debt_instruments.py",
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Debug: Outstanding Debt Instruments",
+      "type": "python",
+      "request": "launch",
+      "program": "${workspaceFolder}/samples/use_outstanding_debt_instruments.py",
+      "console": "integratedTerminal"
+    }
+  ]
 }

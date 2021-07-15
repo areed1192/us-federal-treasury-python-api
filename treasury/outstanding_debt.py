@@ -8,18 +8,18 @@ from treasury.session import FederalTreasurySession
 todays_date = datetime.today().date().isoformat()
 
 
-class PublicDebtInstruments():
+class OutstandingDebtInstruments():
 
     """
     ## Overview:
     ----
     The Federal Treasury provided a wide range of data on
-    public debt instruments. The `PublicDebtInstrument`
+    outstanding debt instruments. The `OutstandingDebtInstruments`
     object is used to query data on these instruments.
     """
 
     def __init__(self, session: FederalTreasurySession) -> None:
-        """Initializes the `PublicDebtInstruments` object.
+        """Initializes the `OutstandingDebtInstruments` object.
 
         ### Parameters
         ----
@@ -29,7 +29,7 @@ class PublicDebtInstruments():
         ### Usage
         ----
             >>> treasury_client = FederalTreasuryClient()
-            >>> debt_instruments_service = treasury_client.public_debt_instruments()
+            >>> outstanding_debt_instruments_service = treasury_client.outstanding_debt_instruments()
         """
 
         # Set the session.
@@ -44,7 +44,7 @@ class PublicDebtInstruments():
 
         return str_representation
 
-    def treasury_securities_outstanding(
+    def rates_of_exchange(
         self,
         fields: List[str] = None,
         sort: List[str] = None,
@@ -52,13 +52,13 @@ class PublicDebtInstruments():
         page_number: int = 1,
         page_size: int = 100
     ) -> Dict:
-        """Queries amounts outstanding for all securities.
+        """Queries Exchange rate of foreign currencies to the U.S.
+        dollar for reporting.
 
         ### Overview
         ----
-        A table that summarizes the amounts outstanding for all the
-        securities issued by the Bureau of the Fiscal Service that makes
-        up the Total Public Debt Outstanding amount.
+        Exchange rate of foreign currencies to the U.S. 
+        for reporting.
 
         ### Parameters
         ----
@@ -98,8 +98,8 @@ class PublicDebtInstruments():
         ### Usage
         ----
             >>> treasury_client = FederalTreasuryClient()
-            >>> debt_instruments_service = treasury_client.public_debt_instruments()
-            >>> debt_instruments_service.treasury_securities_outstanding()
+            >>> outstanding_debt_instruments_service = treasury_client.outstanding_debt_instruments()
+            >>> outstanding_debt_instruments_service.rates_of_exchange()
         """
 
         if fields:
@@ -113,7 +113,7 @@ class PublicDebtInstruments():
 
         content = self.treasury_session.make_request(
             method='get',
-            endpoint='/v1/debt/mspd/mspd_table_1',
+            endpoint='/v1/accounting/od/rates_of_exchange',
             params={
                 'format': 'json',
                 'page[number]': page_number,
@@ -126,7 +126,7 @@ class PublicDebtInstruments():
 
         return content
 
-    def statutory_debt_limit(
+    def mature_unredeemed_debt(
         self,
         fields: List[str] = None,
         sort: List[str] = None,
@@ -134,17 +134,12 @@ class PublicDebtInstruments():
         page_number: int = 1,
         page_size: int = 100
     ) -> Dict:
-        """Queries the Statuatory Debt Limit table.
+        """Queries Mature Unredeemed Debt table.
 
         ### Overview
         ----
-        A table that summarizes the amounts outstanding for the securities
-        issued by the Bureau of the Fiscal Service adjusted for Unamortized
-        Discount on Treasury Bills and Zero Coupon Treasury Bonds, Other
-        Debt (old debt issued before 1917 and old currency called United
-        States Notes), Debt held by the Federal Financing Bank and Guaranteed
-        Debt of Government Agencies that makes up the Total Public Debt Subject
-        to Limit amount.
+        Savings bonds that have met their maturity date and have
+        not been requested by the customer to be redeemed.
 
         ### Parameters
         ----
@@ -184,8 +179,8 @@ class PublicDebtInstruments():
         ### Usage
         ----
             >>> treasury_client = FederalTreasuryClient()
-            >>> debt_instruments_service = treasury_client.public_debt_instruments()
-            >>> debt_instruments_service.statutory_debt_limit()
+            >>> outstanding_debt_instruments_service = treasury_client.outstanding_debt_instruments()
+            >>> outstanding_debt_instruments_service.mature_unredeemed_debt()
         """
 
         if fields:
@@ -199,7 +194,7 @@ class PublicDebtInstruments():
 
         content = self.treasury_session.make_request(
             method='get',
-            endpoint='/v1/debt/mspd/mspd_table_2',
+            endpoint='/v1/accounting/od/savings_bonds_mud',
             params={
                 'format': 'json',
                 'page[number]': page_number,
@@ -212,7 +207,7 @@ class PublicDebtInstruments():
 
         return content
 
-    def details_of_securities_outstanding(
+    def piece_information_by_series(
         self,
         fields: List[str] = None,
         sort: List[str] = None,
@@ -220,13 +215,12 @@ class PublicDebtInstruments():
         page_number: int = 1,
         page_size: int = 100
     ) -> Dict:
-        """Queries the details of Securities Outstanding table.
+        """Queries Piece Information by Series table.
 
         ### Overview
         ----
-        A table that shows details on marketable and non-marketable
-        Treasury securities that are outstanding as of the last
-        business day of the month.
+        Total number of savings bonds by series issued, redeemed
+        and outstanding as of the record_date.
 
         ### Parameters
         ----
@@ -266,8 +260,8 @@ class PublicDebtInstruments():
         ### Usage
         ----
             >>> treasury_client = FederalTreasuryClient()
-            >>> debt_instruments_service = treasury_client.public_debt_instruments()
-            >>> debt_instruments_service.details_of_securities_outstanding()
+            >>> outstanding_debt_instruments_service = treasury_client.outstanding_debt_instruments()
+            >>> outstanding_debt_instruments_service.piece_information_by_series()
         """
 
         if fields:
@@ -281,7 +275,7 @@ class PublicDebtInstruments():
 
         content = self.treasury_session.make_request(
             method='get',
-            endpoint='/v1/debt/mspd/mspd_table_3',
+            endpoint='/v1/accounting/od/savings_bonds_pcs',
             params={
                 'format': 'json',
                 'page[number]': page_number,
@@ -294,7 +288,7 @@ class PublicDebtInstruments():
 
         return content
 
-    def details_of_marketable_securities_outstanding(
+    def saving_bonds_report(
         self,
         fields: List[str] = None,
         sort: List[str] = None,
@@ -302,14 +296,18 @@ class PublicDebtInstruments():
         page_number: int = 1,
         page_size: int = 100
     ) -> Dict:
-        """Queries the Details of Marketables Securities Outstanding table.
+        """Queries Paper Savings Bonds Issues, Redemptions, and
+        Maturities by Series
 
         ### Overview
         ----
-        A table that shows in detail by CUSIP, interest rate, the issue date,
-        maturity date, interest payment dates and amounts outstanding for
-        unmatured Bills, Notes, Bonds, Treasury Inflation-Protected Securities
-        and Floating Rate Notes as of the last business day of the month.
+        For each series of Treasury savings bonds, this dataset
+        details how many are issued and redeemed, the difference of
+        these two values is how many are outstanding, which is also
+        reported in the dataset. It does not contain any information
+        on the values or yields of the Treasury savings bonds. Data
+        in this report dates to the beginning of fiscal year 1999
+        and is updated monthly.
 
         ### Parameters
         ----
@@ -349,8 +347,8 @@ class PublicDebtInstruments():
         ### Usage
         ----
             >>> treasury_client = FederalTreasuryClient()
-            >>> debt_instruments_service = treasury_client.public_debt_instruments()
-            >>> debt_instruments_service.details_of_marketable_securities_outstanding()
+            >>> outstanding_debt_instruments_service = treasury_client.outstanding_debt_instruments()
+            >>> outstanding_debt_instruments_service.saving_bonds_report()
         """
 
         if fields:
@@ -364,7 +362,7 @@ class PublicDebtInstruments():
 
         content = self.treasury_session.make_request(
             method='get',
-            endpoint='/v1/debt/mspd/mspd_table_3_market',
+            endpoint='/v1/accounting/od/savings_bonds_report',
             params={
                 'format': 'json',
                 'page[number]': page_number,
@@ -377,7 +375,7 @@ class PublicDebtInstruments():
 
         return content
 
-    def details_of_nonmarketable_securities_outstanding(
+    def federal_debt_by_month(
         self,
         fields: List[str] = None,
         sort: List[str] = None,
@@ -385,15 +383,16 @@ class PublicDebtInstruments():
         page_number: int = 1,
         page_size: int = 100
     ) -> Dict:
-        """Queries the Details of Non-Marketables Securities Outstanding table.
+        """Schedules of Federal Debt by Month.
 
         ### Overview
         ----
-        A table that summarizes the monthly activity and current month amounts
-        outstanding for Savings Bonds, Government Account Series, and State and
-        Local Government Series securities where legal ownership cannot be
-        transferred. These securities are outstanding as of the last business
-        day of the month.
+        This table represents monthly activity for the Federal Debt
+        Managed by the Bureau of the Fiscal Service separated by Held
+        by the Public and Intragovernmental Debt Holdings totaled by
+        Principal, Accrued Interest Payable, and Net Unamortized
+        Premiums/Discounts. All figures are rounded to the nearest
+        million.
 
         ### Parameters
         ----
@@ -433,8 +432,8 @@ class PublicDebtInstruments():
         ### Usage
         ----
             >>> treasury_client = FederalTreasuryClient()
-            >>> debt_instruments_service = treasury_client.public_debt_instruments()
-            >>> debt_instruments_service.details_of_nonmarketable_securities_outstanding()
+            >>> outstanding_debt_instruments_service = treasury_client.outstanding_debt_instruments()
+            >>> outstanding_debt_instruments_service.federal_debt_by_month()
         """
 
         if fields:
@@ -448,7 +447,7 @@ class PublicDebtInstruments():
 
         content = self.treasury_session.make_request(
             method='get',
-            endpoint='/v1/debt/mspd/mspd_table_3_nonmarket',
+            endpoint='/v1/accounting/od/schedules_fed_debt',
             params={
                 'format': 'json',
                 'page[number]': page_number,
@@ -461,7 +460,7 @@ class PublicDebtInstruments():
 
         return content
 
-    def historical_data(
+    def federal_debt_fiscal_ytd(
         self,
         fields: List[str] = None,
         sort: List[str] = None,
@@ -469,13 +468,15 @@ class PublicDebtInstruments():
         page_number: int = 1,
         page_size: int = 100
     ) -> Dict:
-        """Queries the Historical Data table.
+        """Schedules of Federal Debt, Fiscal Year-to-Date.
 
         ### Overview
         ----
-        A table that shows the historical breakdown of the Debt
-        Held by the Public, Intragovernmental Holdings and the
-        Total Public Debt Outstanding.
+        This table represents fiscal year-to-date activity for the Federal
+        Debt Managed by the Bureau of the Fiscal Service separated by Held
+        by the Public and Intragovernmental Debt Holdings totaled by Principal,
+        Accrued Interest Payable, and Net Unamortized Premiums/Discounts. All
+        figures are rounded to the nearest million.
 
         ### Parameters
         ----
@@ -515,8 +516,8 @@ class PublicDebtInstruments():
         ### Usage
         ----
             >>> treasury_client = FederalTreasuryClient()
-            >>> debt_instruments_service = treasury_client.public_debt_instruments()
-            >>> debt_instruments_service.historical_data()
+            >>> outstanding_debt_instruments_service = treasury_client.outstanding_debt_instruments()
+            >>> outstanding_debt_instruments_service.federal_debt_fiscal_ytd()
         """
 
         if fields:
@@ -530,7 +531,7 @@ class PublicDebtInstruments():
 
         content = self.treasury_session.make_request(
             method='get',
-            endpoint='/v1/debt/mspd/mspd_table_4',
+            endpoint='/v1/accounting/od/schedules_fed_debt_fytd',
             params={
                 'format': 'json',
                 'page[number]': page_number,
@@ -543,7 +544,7 @@ class PublicDebtInstruments():
 
         return content
 
-    def holding_of_securities_stripped_form(
+    def saving_bond_securities(
         self,
         fields: List[str] = None,
         sort: List[str] = None,
@@ -551,19 +552,12 @@ class PublicDebtInstruments():
         page_number: int = 1,
         page_size: int = 100
     ) -> Dict:
-        """Queries the Holdings of Treasury Securities in
-        Stripped Form.
+        """Savings Bonds Securities.
 
         ### Overview
         ----
-        A table that shows in detail by CUSIP, the interest rate, the STRIP
-        CUSIP, maturity date, and amounts outstanding for securities held in
-        unstripped form, stripped form and amount that have been reconstituted.
-        STRIP stands for Separate Trading of Registered Interest and Principal
-        of Securities. This is a security that has been stripped down into
-        separate securities representing the principal and each interest payment.
-        Each payment has its own identification number and can be traded
-        individually. These securities are also known as zero-coupon bonds.
+        Statistics on sold, redeemed, outstanding, and interest rates
+        of non-marketable savings bonds.
 
         ### Parameters
         ----
@@ -603,8 +597,8 @@ class PublicDebtInstruments():
         ### Usage
         ----
             >>> treasury_client = FederalTreasuryClient()
-            >>> debt_instruments_service = treasury_client.public_debt_instruments()
-            >>> debt_instruments_service.holding_of_securities_stripped_form()
+            >>> outstanding_debt_instruments_service = treasury_client.outstanding_debt_instruments()
+            >>> outstanding_debt_instruments_service.saving_bond_securities()
         """
 
         if fields:
@@ -618,7 +612,90 @@ class PublicDebtInstruments():
 
         content = self.treasury_session.make_request(
             method='get',
-            endpoint='/v1/debt/mspd/mspd_table_5',
+            endpoint='/v1/accounting/od/slgs_savings_bonds',
+            params={
+                'format': 'json',
+                'page[number]': page_number,
+                'page[size]': page_size,
+                'fields': fields,
+                'sort': sort,
+                'filters': filters
+            }
+        )
+
+        return content
+
+    def state_and_local_gov_securities(
+        self,
+        fields: List[str] = None,
+        sort: List[str] = None,
+        filters: List[str] = None,
+        page_number: int = 1,
+        page_size: int = 100
+    ) -> Dict:
+        """State and Local Government Series Securities (Non-Marketable).
+
+        ### Overview
+        ----
+        Recap of State and Local Government Series (SLGS) transaction
+        and balance activity updated daily including subscriptions,
+        cancellations, issues, outstanding, and redemptions of
+        non-marketable SLGS securities.
+
+        ### Parameters
+        ----
+        fields : List[str] (optional, Default=None)        
+            The fields parameter allows you to select which field(s) should be
+            included in the response. If desired fields are not specified, all
+            fields will be returned.
+
+        sort : List[str] (optional, Default=None)        
+            The sort parameter allows a user to sort a field in ascending (least
+            to greatest) or descending (greatest to least) order. When no sort parameter
+            is specified, the default is to sort by the first column listed. Most API
+            endpoints are thus sorted by date in ascending order (historical to most
+            current).
+
+        filters : List[str] (optional, Default=None)        
+            Filters are used to view a subset of the data based on specific
+            criteria. For example, you may want to find data that falls within
+            a certain date range, or only show records which contain a value
+            larger than a certain threshold. When no filters are provided,
+            the default response will return all fields and all data.
+
+        page_number : int (optional, Default=1)
+            The page number will set the index for the pagination, starting
+            at 1. This allows the user to paginate through the records
+            returned from an API request
+
+        page_size : int (optional, Default=100)
+            The page size will set the number of rows that are returned
+            on a request.
+
+        ### Returns
+        ----
+        Dict
+            A collection of `Records` resources.
+
+        ### Usage
+        ----
+            >>> treasury_client = FederalTreasuryClient()
+            >>> outstanding_debt_instruments_service = treasury_client.outstanding_debt_instruments()
+            >>> outstanding_debt_instruments_service.state_and_local_gov_securities()
+        """
+
+        if fields:
+            fields = ','.join(fields)
+
+        if filters:
+            filters = ','.join(filters)
+
+        if sort:
+            sort = ','.join(sort)
+
+        content = self.treasury_session.make_request(
+            method='get',
+            endpoint='/v1/accounting/od/slgs_securities',
             params={
                 'format': 'json',
                 'page[number]': page_number,
