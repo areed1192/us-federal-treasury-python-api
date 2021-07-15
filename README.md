@@ -9,6 +9,8 @@
 
 ## Overview
 
+Version: **0.1.0**
+
 The U.S. Department of the Treasury is building a suite of open-source tools to deliver
 standardized information about federal finances to the public. We are working to centralize
 publicly available financial data, and this website will include datasets from the Fiscal
@@ -57,12 +59,12 @@ pip install .
 This will install all the dependencies listed in the `setup.py` file. Once done
 you can use the library wherever you want.
 
-<!-- **Setup - PyPi Install:**
+**Setup - PyPi Install:**
 
 To **install** the library, run the following command from the terminal.
 
 ```console
-pip install federal-register
+pip install us-federal-treasury-python-api
 ```
 
 **Setup - PyPi Upgrade:**
@@ -70,8 +72,8 @@ pip install federal-register
 To **upgrade** the library, run the following command from the terminal.
 
 ```console
-pip install --upgrade federal-register
-``` -->
+pip install --upgrade us-federal-treasury-python-api
+```
 
 ## Usage
 
@@ -107,6 +109,3 @@ pay monthly fees.
 
 **YouTube:**
 If you'd like to watch more of my content, feel free to visit my YouTube channel [Sigma Coding](https://www.youtube.com/c/SigmaCoding).
-
-<!-- **Hire Me:**
-If you have a project, you think I can help you with feel free to reach out at [coding.sigma@gmail.com](mailto:coding.sigma@gmail.com?subject=[GitHub]%20Project%20Proposal) or fill out the [contract request form](https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAa__aAmF1hURFg5ODdaVTg1TldFVUhDVjJHWlRWRzhZRy4u) -->
